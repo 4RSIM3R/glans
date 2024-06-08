@@ -1,12 +1,19 @@
-## Glans
+# Glans
 
-simple POC of mysql proxy, dengan studi kasus aplikasi php (ci3, wp, etc) yang bertindak sebagai : 
+A simple proof of concept (POC) for a MySQL proxy, with use cases involving PHP applications (CI3, WordPress, etc.) that functions as:
 
-- connection pool, karena php itu state-less, open connection, dan close, tidak cocok ketika terjadi lonjakan traffic
-- smart cache (soon), ini khusus untuk table yang read-intensive, jadi cache nya level di proxy tapi tetep bisa di validate
-- load balancer (soon), anda punya lebih dari 2 instance, gaskan, master-svaled oke
+- **Connection Pool**: Given that PHP is stateless (open and close connections), it is not ideal for handling traffic spikes. This proxy provides a connection pool to manage such scenarios.
+- **Smart Cache (Coming Soon)**: Designed for read-intensive tables, the proxy-level cache ensures performance while maintaining validation capabilities.
+- **Load Balancer (Coming Soon)**: If you have more than two instances, this proxy can handle load balancing, suitable for master-slave setups.
 
+## Why Not Just Use Vitess?
 
-## Kenapa nggak pakai vites aja bang?
+This project is part of my internship report, completed in just four days to showcase a cool implementation. The primary goal was to implement the MySQL protocol using a library.
 
-bang, ini buat tugas laporan magang gue bang, ini aja di kerjain cuman 4 harian, ya kan biar keren aja, aslinya mah cuman implement mysql protocol itu aja pakai library, aowkowkowkwokwokwo
+## How to Use
+
+Just like any ordinary MySQL connection, simply connect to the server, which is already compatible. It's similar to `pgpool`:
+
+```sh
+mysql -h 127.0.0.1 -P 4000 -u root
+```
